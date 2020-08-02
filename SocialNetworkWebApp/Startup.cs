@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SocialNetworkWebApp.Data;
 using SocialNetworkWebApp.Models;
+using SocialNetworkWebApp.Services;
 
 namespace SocialNetworkWebApp
 {
@@ -59,6 +60,7 @@ namespace SocialNetworkWebApp
                 };
             });
             services.AddControllers();
+            services.AddScoped(typeof(IUserService), typeof(UserService));
 
             services.AddSwaggerGen(c =>
             {
