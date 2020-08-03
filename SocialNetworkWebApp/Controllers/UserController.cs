@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SocialNetworkWebApp.Models;
+using SocialNetworkWebApp.Models.DBModels;
 using SocialNetworkWebApp.Models.Dtos;
 using SocialNetworkWebApp.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SocialNetworkWebApp.Controllers
@@ -28,9 +26,8 @@ namespace SocialNetworkWebApp.Controllers
         {
             var users = await _userService.GetUsersAsync();
             if (users == null)
-            {
                 return BadRequest();
-            }
+
             return Ok(users);
         }
 
@@ -40,9 +37,8 @@ namespace SocialNetworkWebApp.Controllers
         {
             var user = await _userService.CreateUserAsync(createUserDto);
             if (user == null)
-            {
                 return BadRequest();
-            }
+
             return Ok(user);
         }
 
@@ -53,9 +49,8 @@ namespace SocialNetworkWebApp.Controllers
         {
             var jwtToken = await _userService.AuthenticateAsync(request);
             if (jwtToken == null)
-            {
                 return BadRequest();
-            }
+
             return Ok(jwtToken);
         }
     }

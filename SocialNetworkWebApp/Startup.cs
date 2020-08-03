@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SocialNetworkWebApp.Data;
-using SocialNetworkWebApp.Models;
+using SocialNetworkWebApp.Models.DBModels;
 using SocialNetworkWebApp.Services;
 
 namespace SocialNetworkWebApp

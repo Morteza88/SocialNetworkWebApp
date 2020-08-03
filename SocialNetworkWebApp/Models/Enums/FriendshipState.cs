@@ -1,4 +1,4 @@
-﻿namespace SocialNetworkWebApp.Models
+﻿namespace SocialNetworkWebApp.Models.Enums
 {
     public enum FriendshipState
     {

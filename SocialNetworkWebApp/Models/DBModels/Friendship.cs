@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using SocialNetworkWebApp.Models.Enums;
+using System;
 
-namespace SocialNetworkWebApp.Models
+namespace SocialNetworkWebApp.Models.DBModels
 {
     public class Friendship : BaseEntity
     {

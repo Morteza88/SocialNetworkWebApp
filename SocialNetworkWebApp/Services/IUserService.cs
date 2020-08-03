@@ -1,8 +1,6 @@
-﻿using SocialNetworkWebApp.Models;
+﻿using SocialNetworkWebApp.Models.DBModels;
 using SocialNetworkWebApp.Models.Dtos;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SocialNetworkWebApp.Services

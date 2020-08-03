@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SocialNetworkWebApp.Models;
+using SocialNetworkWebApp.Models.DBModels;
 using SocialNetworkWebApp.Models.Dtos;
 using System;
 using System.Collections.Generic;
@@ -51,7 +51,6 @@ namespace SocialNetworkWebApp.Services
             }
             return user;
         }
-
         public async Task<string> AuthenticateAsync(LoginRequest loginRequest)
         {
             var user = await _userManager.FindByNameAsync(loginRequest.Username);
@@ -62,11 +61,10 @@ namespace SocialNetworkWebApp.Services
             if (!isPasswordValid)
                 throw new Exception("Invalid Username or Password");
 
-            var jwtToken = await generateJwtToken(user);
+            var jwtToken = await GenerateJwtToken(user);
             return jwtToken;
         }
-
-        private async Task<string> generateJwtToken(User user)
+        private async Task<string> GenerateJwtToken(User user)
         {
             var roles = await _userManager.GetRolesAsync(user);
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -84,6 +82,33 @@ namespace SocialNetworkWebApp.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+        public async Task<User> GetCurrentUserAsync()
+        {
+            var claims = _httpContextAccessor.HttpContext.User.Claims.ToList();
+            string userName = null;
+            foreach (var claim in claims)
+            {
+                if (claim.Type == ClaimTypes.Name)
+                {
+                    userName = claim.Value;
+                }
+            }
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+            if (user == null)
+            {
+                throw new EntryPointNotFoundException("couldn't find any user with UserName = " + userName);
+            }
+            return user;
+        }
+        public async Task<User> GetUserByIdAsync(Guid id)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id);
+            if (user == null)
+            {
+                throw new EntryPointNotFoundException("couldn't find any user with Id = " + id);
+            }
+            return (user);
         }
     }
 }
