@@ -9,8 +9,8 @@ namespace SocialNetworkWebApp.Repositories.Contracts
 {
     public interface IFriendshipRepository : IRepository<Friendship>
     {
-        Task<IEnumerable<Friendship>> GetFriendRequestsByFromUserAndStateAsync(Guid fromUserId, FriendshipState state);
-        Task<IEnumerable<Friendship>> GetFriendRequestsByToUserAndStateAsync(Guid toUserId, FriendshipState state);
-        Task<Friendship> GetFriendRequestsByFromUserAndToUserAsync(Guid fromUserId, Guid toUserId);
+        Task<IEnumerable<Friendship>> GetByFromUserAndStateAsync(Guid fromUserId, FriendshipState state);
+        Task<IEnumerable<Friendship>> GetByToUserAndStateAsync(Guid toUserId, FriendshipState state);
+        Task<Friendship> GetByFromUserAndToUserAsync(Guid fromUserId, Guid toUserId);
     }
 }

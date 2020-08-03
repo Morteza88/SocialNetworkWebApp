@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SocialNetworkWebApp.Models.DBModels;
 using SocialNetworkWebApp.Models.Dtos;
+using SocialNetworkWebApp.Services.Contracts;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,7 +20,7 @@ namespace SocialNetworkWebApp.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private IConfiguration _config;
+        private readonly IConfiguration _config;
 
         public UserService(UserManager<User> userManager, IHttpContextAccessor httpContextAccessor, IConfiguration config)
         {
@@ -61,10 +62,10 @@ namespace SocialNetworkWebApp.Services
             if (!isPasswordValid)
                 throw new Exception("Invalid Username or Password");
 
-            var jwtToken = await GenerateJwtToken(user);
+            var jwtToken = await generateJwtToken(user);
             return jwtToken;
         }
-        private async Task<string> GenerateJwtToken(User user)
+        private async Task<string> generateJwtToken(User user)
         {
             var roles = await _userManager.GetRolesAsync(user);
             var tokenHandler = new JwtSecurityTokenHandler();
