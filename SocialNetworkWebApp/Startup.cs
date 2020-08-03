@@ -17,7 +17,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SocialNetworkWebApp.Data;
 using SocialNetworkWebApp.Models.DBModels;
+using SocialNetworkWebApp.Repositories;
+using SocialNetworkWebApp.Repositories.Contracts;
 using SocialNetworkWebApp.Services;
+using SocialNetworkWebApp.Services.Contracts;
 
 namespace SocialNetworkWebApp
 {
@@ -61,6 +64,9 @@ namespace SocialNetworkWebApp
             });
             services.AddControllers();
             services.AddScoped(typeof(IUserService), typeof(UserService));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IFriendshipRepository), typeof(FriendshipRepository));
+            services.AddScoped(typeof(IFriendshipService), typeof(FriendshipService));
 
             services.AddSwaggerGen(c =>
             {

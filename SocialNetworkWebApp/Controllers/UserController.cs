@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SocialNetworkWebApp.Models.DBModels;
 using SocialNetworkWebApp.Models.Dtos;
-using SocialNetworkWebApp.Services;
+using SocialNetworkWebApp.Services.Contracts;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
