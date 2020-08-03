@@ -18,5 +18,7 @@ namespace SocialNetworkWebApp.Models
         [StringLength(100)]
         public string FullName { get; set; }
         public bool IsActive { get; set; }
+        public ICollection<Friendship> SentRequests { get; set; }
+        public ICollection<Friendship> ReceivedRequests { get; set; }
     }
 }

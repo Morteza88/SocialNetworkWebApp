@@ -60,6 +60,20 @@ namespace SocialNetworkWebApp.Data
                     RoleId = adminRoleGuid,
                 }
             );
+
+            builder.Entity<Friendship>()
+                .HasKey(bc => new { bc.FromUserId, bc.ToUserId });
+            builder.Entity<Friendship>()
+                .HasOne(bc => bc.FromUser)
+                .WithMany(b => b.SentRequests)
+                .HasForeignKey(bc => bc.FromUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Friendship>()
+                .HasOne(bc => bc.ToUser)
+                .WithMany(c => c.ReceivedRequests)
+                .HasForeignKey(bc => bc.ToUserId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
+        public DbSet<Friendship> Friendships { get; set; }
     }
 }
