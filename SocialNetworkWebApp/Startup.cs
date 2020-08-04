@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SocialNetworkWebApp.Data;
+using SocialNetworkWebApp.Middlewares;
 using SocialNetworkWebApp.Models.DBModels;
 using SocialNetworkWebApp.Repositories;
 using SocialNetworkWebApp.Repositories.Contracts;
@@ -102,6 +103,8 @@ namespace SocialNetworkWebApp
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<CustomExceptionMiddleware>();
 
             app.UseSwagger();
 
