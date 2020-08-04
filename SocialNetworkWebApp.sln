@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetworkWebApp", "SocialNetworkWebApp\SocialNetworkWebApp.csproj", "{676A3FB8-6723-4D9D-9584-C62ED03CDDCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialNetworkWebApp", "SocialNetworkWebApp\SocialNetworkWebApp.csproj", "{676A3FB8-6723-4D9D-9584-C62ED03CDDCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetworkWebApp.UnitTest", "SocialNetworkWebApp.UnitTest\SocialNetworkWebApp.UnitTest.csproj", "{714CEB1B-4620-41B3-AC7C-716CFC64BA29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{676A3FB8-6723-4D9D-9584-C62ED03CDDCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{676A3FB8-6723-4D9D-9584-C62ED03CDDCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{676A3FB8-6723-4D9D-9584-C62ED03CDDCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{714CEB1B-4620-41B3-AC7C-716CFC64BA29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{714CEB1B-4620-41B3-AC7C-716CFC64BA29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{714CEB1B-4620-41B3-AC7C-716CFC64BA29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{714CEB1B-4620-41B3-AC7C-716CFC64BA29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
