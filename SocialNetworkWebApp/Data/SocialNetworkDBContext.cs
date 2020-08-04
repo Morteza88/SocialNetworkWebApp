@@ -58,6 +58,11 @@ namespace SocialNetworkWebApp.Data
                 }
             );
 
+
+            builder.Entity<Friendship>()
+                .Property(b => b.CreatedAt)
+                .HasDefaultValueSql("getdate()");
+
             builder.Entity<Friendship>()
                 .HasKey(bc => new { bc.FromUserId, bc.ToUserId });
             builder.Entity<Friendship>()

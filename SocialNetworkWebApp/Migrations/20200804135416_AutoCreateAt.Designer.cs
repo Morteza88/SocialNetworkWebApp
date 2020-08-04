@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialNetworkWebApp.Data;
 
 namespace SocialNetworkWebApp.Migrations
 {
     [DbContext(typeof(SocialNetworkDBContext))]
-    partial class SocialNetworkDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200804135416_AutoCreateAt")]
+    partial class AutoCreateAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
