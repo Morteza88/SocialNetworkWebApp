@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +23,7 @@ using SocialNetworkWebApp.Repositories;
 using SocialNetworkWebApp.Repositories.Contracts;
 using SocialNetworkWebApp.Services;
 using SocialNetworkWebApp.Services.Contracts;
+using SocialNetworkWebApp.Utils;
 
 namespace SocialNetworkWebApp
 {
@@ -44,6 +46,15 @@ namespace SocialNetworkWebApp
             services.AddIdentity<User, Role>()
             .AddEntityFrameworkStores<SocialNetworkDBContext>()
             .AddDefaultTokenProviders();
+
+            // Auto Mapper Configurations
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             // configure jwt authentication
             services.AddAuthentication(x =>

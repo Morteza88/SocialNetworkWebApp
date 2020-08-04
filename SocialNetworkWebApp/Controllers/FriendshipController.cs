@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialNetworkWebApp.Models.DBModels;
 using SocialNetworkWebApp.Models.Dtos;
@@ -15,10 +16,12 @@ namespace SocialNetworkWebApp.Controllers
     public class FriendshipController : ControllerBase
     {
         private readonly IFriendshipService _service;
+        private readonly IMapper _mapper;
 
-        public FriendshipController(IFriendshipService service)
+        public FriendshipController(IFriendshipService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         // POST: api/Friendship/SendFriendshipRequest
@@ -26,10 +29,7 @@ namespace SocialNetworkWebApp.Controllers
         [Authorize(Roles = "User")]
         public async Task<ActionResult> SendFriendshipRequest(CreateFriendshipDto createFriendshipDto)
         {
-            var result = await _service.CreateFriendshipAsync(createFriendshipDto.UserId);
-            if (result != 1)
-                return BadRequest();
-
+            await _service.CreateFriendshipAsync(createFriendshipDto.UserId);
             return Ok();
         }
 
@@ -39,19 +39,7 @@ namespace SocialNetworkWebApp.Controllers
         public async Task<ActionResult<IEnumerable<SentFriendshipDto>>> GetSentFriendShips()
         {
             var sentFriendships = await _service.GetSentFriendshipsAsync();
-            if (sentFriendships == null)
-                return BadRequest();
-            var sentFriendshipDtos = new List<SentFriendshipDto>();
-            foreach (var item in sentFriendships)
-            {
-                sentFriendshipDtos.Add(new SentFriendshipDto
-                {
-                    Id = item.Id,
-                    ToUserId = item.ToUserId,
-                    ToUserName = item.ToUser.UserName,
-                    State = item.State
-                });
-            }
+            var sentFriendshipDtos = _mapper.Map<IEnumerable<SentFriendshipDto>>(sentFriendships);
             return Ok(sentFriendshipDtos);
         }
 
@@ -61,21 +49,7 @@ namespace SocialNetworkWebApp.Controllers
         public async Task<ActionResult<IEnumerable<ReceivedFriendshipDto>>> GetReceivedFriendships()
         {
             var receivedFriendships = await _service.GetReceivedFriendshipsAsync();
-            if (receivedFriendships == null)
-            {
-                return BadRequest();
-            }
-            var receivedFriendshipDtos = new List<ReceivedFriendshipDto>();
-            foreach (var item in receivedFriendships)
-            {
-                receivedFriendshipDtos.Add(new ReceivedFriendshipDto 
-                { 
-                    Id = item.Id, 
-                    FromUserId = item.FromUserId,
-                    FromUserName = item.FromUser.UserName,
-                    State = item.State 
-                });
-            }
+            var receivedFriendshipDtos = _mapper.Map<IEnumerable<ReceivedFriendshipDto>>(receivedFriendships);
             return Ok(receivedFriendshipDtos);
         }
 
@@ -84,10 +58,7 @@ namespace SocialNetworkWebApp.Controllers
         [Authorize(Roles = "User")]
         public async Task<ActionResult> AcceptFriendship(AcceptFriendshipDto acceptFriendshipDto)
         {
-            var result = await _service.AcceptFriendshipAsync(acceptFriendshipDto.FriendshipId);
-            if (result != 1)
-                return BadRequest();
-            
+            await _service.AcceptFriendshipAsync(acceptFriendshipDto.FriendshipId);
             return Ok();
         }
 
@@ -96,10 +67,7 @@ namespace SocialNetworkWebApp.Controllers
         [Authorize(Roles = "User")]
         public async Task<ActionResult> RejectFriendship(RejectFriendshipDto rejectFriendshipDto)
         {
-            var result = await _service.RejectFriendshipAsync(rejectFriendshipDto.FriendshipId);
-            if (result != 1)
-                return BadRequest();
-            
+            await _service.RejectFriendshipAsync(rejectFriendshipDto.FriendshipId);
             return Ok();
         }
 
@@ -108,10 +76,7 @@ namespace SocialNetworkWebApp.Controllers
         [Authorize(Roles = "User")]
         public async Task<ActionResult> CancelFriendship(CancelFriendshipDto cancelFriendshipDto)
         {
-            var result = await _service.CancelFriendshipAsync(cancelFriendshipDto.FriendshipId);
-            if (result != 1)
-                return BadRequest();
-            
+            await _service.CancelFriendshipAsync(cancelFriendshipDto.FriendshipId);
             return Ok();
         }
 
@@ -121,15 +86,7 @@ namespace SocialNetworkWebApp.Controllers
         public async Task<ActionResult<IEnumerable<UserDto>>> GetFriends()
         {
             var friends = await _service.GetFriendsAsync();
-            var friendDtos = new List<UserDto>();
-            foreach (var item in friends)
-            {
-                friendDtos.Add(new UserDto
-                {
-                    Id = item.Id,
-                    FullName = item.FullName,
-                });
-            }
+            var friendDtos = _mapper.Map<IEnumerable<UserDto>>(friends);
             return Ok(friendDtos);
         }
 
@@ -138,10 +95,7 @@ namespace SocialNetworkWebApp.Controllers
         [Authorize(Roles = "User")]
         public async Task<ActionResult> Unfriend(UnfriendUserDto unfriendUserDto)
         {
-            var result = await _service.UnfriendAsync(unfriendUserDto.UserId);
-            if (result != 1)
-                return BadRequest();
-            
+            await _service.UnfriendAsync(unfriendUserDto.UserId);
             return Ok();
         }
     }

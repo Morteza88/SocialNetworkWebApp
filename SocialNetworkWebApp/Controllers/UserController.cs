@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SocialNetworkWebApp.Models.DBModels;
 using SocialNetworkWebApp.Models.Dtos;
@@ -13,33 +14,31 @@ namespace SocialNetworkWebApp.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         // GET: api/Users
         [HttpGet]
         [Authorize(Roles = "User")]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
         {
             var users = await _userService.GetUsersAsync();
-            if (users == null)
-                return BadRequest();
-
-            return Ok(users);
+            var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
+            return Ok(userDtos);
         }
 
         // POST: api/Users/Register
         [HttpPost("[action]")]
-        public async Task<ActionResult<User>> Register(CreateUserDto createUserDto)
+        public async Task<ActionResult<UserDto>> Register(CreateUserDto createUserDto)
         {
             var user = await _userService.CreateUserAsync(createUserDto);
-            if (user == null)
-                return BadRequest();
-
-            return Ok(user);
+            var userDto = _mapper.Map<UserDto>(user);
+            return Ok(userDto);
         }
 
         // POST: api/Users/Login
@@ -48,9 +47,6 @@ namespace SocialNetworkWebApp.Controllers
         public async Task<ActionResult> Login(LoginRequest request)
         {
             var jwtToken = await _userService.AuthenticateAsync(request);
-            if (jwtToken == null)
-                return BadRequest();
-
             return Ok(jwtToken);
         }
     }
