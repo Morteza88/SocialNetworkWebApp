@@ -54,7 +54,7 @@ namespace SocialNetworkWebApp.Controllers
         }
 
         // Post: api/Friendship/AcceptFriendship
-        [HttpPost("[action]")]
+        [HttpPut("[action]")]
         [Authorize(Roles = "User")]
         public async Task<ActionResult> AcceptFriendship(AcceptFriendshipDto acceptFriendshipDto)
         {
@@ -63,7 +63,7 @@ namespace SocialNetworkWebApp.Controllers
         }
 
         // Post: api/Friendship/RejectFriendship
-        [HttpPost("[action]")]
+        [HttpPut("[action]")]
         [Authorize(Roles = "User")]
         public async Task<ActionResult> RejectFriendship(RejectFriendshipDto rejectFriendshipDto)
         {
@@ -72,7 +72,7 @@ namespace SocialNetworkWebApp.Controllers
         }
 
         // Post: api/Friendship/CancelFriendship
-        [HttpPost("[action]")]
+        [HttpDelete("[action]")]
         [Authorize(Roles = "User")]
         public async Task<ActionResult> CancelFriendship(CancelFriendshipDto cancelFriendshipDto)
         {
@@ -91,7 +91,7 @@ namespace SocialNetworkWebApp.Controllers
         }
 
         // Post: api/Friendship/Unfriend
-        [HttpPost("[action]")]
+        [HttpDelete("[action]")]
         [Authorize(Roles = "User")]
         public async Task<ActionResult> Unfriend(UnfriendUserDto unfriendUserDto)
         {
